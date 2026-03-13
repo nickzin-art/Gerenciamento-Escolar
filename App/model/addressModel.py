@@ -1,6 +1,6 @@
 from App.config.database import Database
 
-class Adress:
+class Address:
 
     id = None
     city = ""
@@ -23,7 +23,7 @@ class Adress:
         pass
 
     @classmethod
-    def update(cls):
+    def updateAddress(cls):
 
         try:
             DB = Database()
@@ -37,11 +37,11 @@ class Adress:
             """
 
             params = (
-                adress.city,
-                adress.neighborhood,
-                adress.street,
-                adress.complement,
-                adress.responsible_id
+                address.city,
+                address.neighborhood,
+                address.street,
+                address.complement,
+                address.responsible_id
                 )
 
             DB.execute(sql, params)
@@ -50,28 +50,6 @@ class Adress:
         except Exception as e:
             print("Não foi possível atualizar:", e)
             raise RuntimeError("Falha ao atualizar o endereço!") from e
-
-
-    def updateAdress(self):
-
-        DB = Database()
-        sql = """
-            UPDATE enderecos
-            SET cidade = %s,
-                bairro = %s,
-                rua = %s,
-                complemento = %s
-            WHERE responsavel_id = %s
-        """
-
-        params = (
-            self.city,
-            self.neighborhood,
-            self.street,
-            self.complement,
-            self.responsible_id
-        )
-        DB.execute(sql, params)
       
 
         
@@ -79,13 +57,28 @@ class Adress:
         
         
         
+    @classmethod
+    def read(cls):
+        # CONSULTAR ENDEREÇO ATRAVÉS DO RESPONSAVEL
 
-    def read(self):
-        # CONSULTAR ENDEREÇO
-        DB = Database()
-        sql = "SELECT * FROM enderecos WHERE id = %s"
-        result = DB.fetchall(sql)
-        return result
+        try:
+            DB = Database()
+            sql = """SELECT cidade, bairro, rua, complemento
+                FROM enderecos
+                WHERE responsavel_id = %s;
+            """
+            params = (address.responsible_id,)
+            result = DB.fetchOne(sql, params)
+            
+            print("Seleção feita!")
+            print(result)
+
+        except Exception as e:
+            print("Não foi possível selecionar:", e)
+            raise RuntimeError("Falha ao selecionar o endereço!") from e
+
+            
+        
 
     def delete(self):
         #DELETAR ENDEREÇO
@@ -101,12 +94,12 @@ class Adress:
 
 
 if __name__ == "__main__":
-    adress = Adress(
-        responsible_id=3,     
+    address = Address(
+        responsible_id=1,     
         city="Toquio",
         neighborhood="Bairro Nada",
         street="Rua Sushi",
         complement="Nada"
     )
 
-    adress.update()
+    address.read()
