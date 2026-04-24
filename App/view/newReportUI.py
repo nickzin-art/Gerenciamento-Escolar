@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QComboBox
+from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QComboBox, QCalendarWidget
 from PyQt5.QtCore import pyqtSlot, QDate
 from PyQt5.uic import loadUi
 from App.controller.reportController import ReportController
@@ -13,6 +13,7 @@ class NewReportUI(QDialog):
         self.listParents = ParentController.findParentForStudent(self.studentID)
         self.populateComboBox()
 
+        self.dataOcorrencia.mousePressEvent = displayCalendar()
         self.dataOcorrencia.setCalendarPopup(True)
         self.dataOcorrencia.setDate(QDate.currentDate())
 
@@ -35,6 +36,10 @@ class NewReportUI(QDialog):
             "name": name,
             "date": date
         }
+    
+    def displayCalendar(self):
+        self.dataOcorrencia.ShowPopup()
+        
     
     def sendReport(self):
         try:
