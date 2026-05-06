@@ -117,6 +117,10 @@ class Report:
         return cls._getObjectList(result)
  
 if __name__ == "__main__":
-    relatorio_para_editar = Report(id=7, description="Descrição atualizada com sucesso")
-    Report.edit(relatorio_para_editar)
-    print(relatorio_para_editar)
+
+    c = Report.searchStudentID(3)
+
+    print(c)
+    #relatorio_para_editar = Report(id=7, description="Descrição atualizada com sucesso")
+    #Report.edit(relatorio_para_editar)
+    #print(relatorio_para_editar)
