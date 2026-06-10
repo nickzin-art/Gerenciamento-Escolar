@@ -78,11 +78,30 @@ QTextEdit#obs {
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0">
         <property name="spacing">
          <number>0</number>
         </property>
-        <item alignment="Qt::AlignBottom">
+        <item>
+         <widget class="QPushButton" name="btnOcorrencias">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>95</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ocorrências</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="btnStatus">
           <property name="minimumSize">
            <size>
@@ -101,7 +120,7 @@ QTextEdit#obs {
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignBottom">
+        <item alignment="Qt::AlignVCenter">
          <widget class="QPushButton" name="btnTurma">
           <property name="minimumSize">
            <size>
@@ -124,6 +143,9 @@ QTextEdit#obs {
       </item>
       <item row="1" column="0">
        <widget class="QTextEdit" name="obs">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>400</width>
@@ -144,26 +166,7 @@ QTextEdit#obs {
        </widget>
       </item>
       <item row="2" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
-        <item alignment="Qt::AlignTop">
-         <widget class="QPushButton" name="btnOcorrencias">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>95</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Ocorrências</string>
-          </property>
-         </widget>
-        </item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
         <item alignment="Qt::AlignTop">
          <widget class="QPushButton" name="btnEdit">
           <property name="minimumSize">
@@ -181,24 +184,11 @@ QTextEdit#obs {
           <property name="text">
            <string>Editar</string>
           </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignTop">
-         <widget class="QPushButton" name="btnClose">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
+          <property name="checkable">
+           <bool>true</bool>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>70</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Fechar</string>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -245,6 +235,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </property>
       <item>
        <widget class="QLineEdit" name="nome_4">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>350</width>
@@ -264,6 +257,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </item>
       <item>
        <widget class="QLineEdit" name="nomeSocial">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>350</width>
@@ -280,6 +276,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </item>
       <item>
        <widget class="QDateTimeEdit" name="data_6">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -293,6 +292,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </item>
       <item>
        <widget class="QLineEdit" name="cpf_3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -309,6 +311,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </item>
       <item>
        <widget class="QLineEdit" name="ra">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>150</width>
@@ -325,6 +330,9 @@ QLineEdit:focus, QDateTimeEdit:focus {
       </item>
       <item>
        <widget class="QLineEdit" name="rm">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>150</width>

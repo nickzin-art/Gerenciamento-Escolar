@@ -4,6 +4,8 @@ from PyQt5.uic import loadUi
 from App.controller.parentController import ParentController
 
 
+from App.controller.parentController import ParentController 
+ 
 class ReportCardUI(QDialog):
     def __init__(self, report, **kwargs):
         super().__init__(**kwargs)
@@ -11,7 +13,7 @@ class ReportCardUI(QDialog):
         self.show()
         self.report = report
        
-        self.dateLabel.setText(str(self.report.date))
+        self.dateLabel.setText(str(self.report.date.strftime("%d/%m/%Y")))
         self.descLabel.setText(self.report.description)
         parent = ParentController.findParentId(self.report.parentID)
 

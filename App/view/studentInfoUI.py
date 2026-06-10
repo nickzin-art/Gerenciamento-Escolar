@@ -31,6 +31,23 @@ class StudentInfoUI(QDialog):
     def openOcorrencias(self):
             self.report = ReportUI(self.student.id)
             self.report.show()
+
+    @pyqtSlot()
+    def on_btnEdit_clicked(self):
+        if self.btnEdit.text() == "Editar":
+            self.btnEdit.setText("Salvar") 
+            self.btnEdit.setStyleSheet("background-color: #4CAF50")
+            self.nomeSocial.setEnabled(True)
+            self.obs.setEnabled(True)
+
+        else:
+            self.btnEdit.setText("Editar")
+            self.btnEdit.setStyleSheet("")
+            self.nomeSocial.setEnabled(False)
+            self.obs.setEnabled(False)
+
+        # StudentController.update(self.student.id, self.student)
+
     
 
 if __name__ == "__main__":

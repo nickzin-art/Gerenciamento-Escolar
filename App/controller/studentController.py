@@ -72,7 +72,14 @@ class StudentController:
         except Exception as e:
             print(f"Erro no controller ao desativar aluno: {e}")
             return False
- 
+    
+    @classmethod
+    def deleteListStudent(cls , list:list[Student]):
+        if not list:
+            raise ValueError("A lista deve conter valores validos!")
+        for student in list:
+            cls.delete(student.id)
+
     @classmethod
     def activate(cls, id: int):
         try:
@@ -132,6 +139,20 @@ class StudentController:
             return []
         
     @classmethod
+    def linkListStudentsToClassroom(cls, students:Student , roomId):
+        if not students or roomId < 1:
+            return ("Preencha os dados necessários")
+        for student in students:
+            Student.linkStudentInClassroom(student.id , roomId)
+    
+    @classmethod
+    def deleteListStudent(cls , list:list[Student]):
+        if not list:
+            raise ValueError("A lista deve conter valores validos!")
+        for student in list:
+            cls.delete(student.id)
+
+    @classmethod
     def searchStudent(cls, search):
         try:
             if not search:
@@ -152,8 +173,10 @@ if __name__ == "__main__":
     # print(alunos[4].nome)
 
     # print('-'*50)
-     alunos_sala = StudentController.getByRoomID(2)
-     print(alunos_sala)
+    alunos_sala = StudentController.getByRoomID(3)
+    StudentController.deleteListStudent(alunos_sala[:3])
+
+
 
     # print('-'*50)
     # alunos_ativos = StudentController.getActive()

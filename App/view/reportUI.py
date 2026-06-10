@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.uic import loadUi
 from App.view.reportCardUI import ReportCardUI
 from App.controller.reportController import ReportController
