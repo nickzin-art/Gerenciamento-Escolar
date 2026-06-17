@@ -50,8 +50,6 @@ class RegisterEmployeeUI(QDialog):
             except Exception as e:
                 print(f"Erro: \n{e}")
 
-
-
 if __name__ == "__main__":
     from PyQt5.QtWidgets import QApplication
     app = QApplication([])

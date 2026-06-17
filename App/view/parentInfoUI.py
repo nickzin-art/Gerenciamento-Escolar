@@ -22,13 +22,16 @@ class ParentInfoUI(QDialog):
         self.populateComboBox()
         self.comboBox.currentIndexChanged.connect(self.getInfo)
         self.btnRemover.clicked.connect(self.removeParent)
+        self.btnInserir.clicked.connect(self.openRegisterParent)
         self.getInfo()
         self.show()
         
         
     def getInfo(self):
         if self.comboBox.count() == 0:
-                return
+            self.btnEditar.setEnabled(False)
+            return
+        self.btnEditar.setEnabled(True)
         indexResp = self.comboBox.currentIndex()
         parent = self.listParents[indexResp]
 
@@ -39,6 +42,7 @@ class ParentInfoUI(QDialog):
 
         listTelephone = TelephoneController.findTelephoneByParentId(parent.id)
         self.telefone.setText(listTelephone[0].telephone)
+        self._telephoneId = listTelephone[0].id
 
         listAddress = AddressController.findAddressByParentId(parent.id)
         self.cidade.setText(listAddress[0].city)
@@ -47,6 +51,7 @@ class ParentInfoUI(QDialog):
         self.bairro.setText(listAddress[0].neighborhood)
         self.cep.setText(listAddress[0].cep)
         self.numero.setText(listAddress[0].number)
+        self._addressId = listAddress[0].id
 
         self.nome.setReadOnly(True)
         self.cpf.setReadOnly(True)
@@ -68,13 +73,32 @@ class ParentInfoUI(QDialog):
         self.btnEditar.clicked.connect(self.saveParent)
 
     def saveParent(self):
-        print(self.telefone.text())
-        print(self.cidade.text())
-        print(self.complemento.text())
-        print(self.rua.text())
-        print(self.bairro.text())
-        print(self.cep.text())
-        print(self.numero.text())
+        indexResp = self.comboBox.currentIndex()
+        parent = self.listParents[indexResp]
+
+        parentData = {
+            "id": parent.id,
+            "nome": self.nome.text(),
+            "cpf": self.cpf.text(),
+            "address": {
+                "id": self._addressId,
+                "city": self.cidade.text(),
+                "complement": self.complemento.text(),
+                "street": self.rua.text(),
+                "neighborhood": self.bairro.text(),
+                "cep": self.cep.text(),
+                "number": self.numero.text(),
+                "responsible_id": self.listParents[self.comboBox.currentIndex()].id
+            },
+            "telephone": {
+                "id": self._telephoneId,
+                "telephone": self.telefone.text(),
+            }
+        }
+        try:
+            ParentController.update(parentData)
+        except Exception as e:
+            print(f"Erro ao salvar: {e}")
 
         self.lockFields(True)
         self.btnEditar.setText("Editar")
@@ -82,16 +106,22 @@ class ParentInfoUI(QDialog):
         self.btnEditar.clicked.connect(self.enableEditing)
        
     def buscarCEP(self):
+        if self.btnEditar.text() != "Salvar":
+            return
+    
+        self.btnEditar.setEnabled(False)
         cep = self.cep.text()
         self.validarCEP =Trabalhador(AddressController.requestCep, cep=cep)
         self.validarCEP.signal_CEP.connect(self.popularCEP)
         self.validarCEP.finished.connect(self.validarCEP.deleteLater)
+        self.validarCEP.finished.connect(lambda: self.btnEditar.setEnabled(True))
         self.validarCEP.start()
 
     def popularCEP(self, dadosCEP):
         self.cidade.setText(dadosCEP.get("city"))
         self.bairro.setText(dadosCEP.get("neighborhood"))
         self.rua.setText(dadosCEP.get("street"))
+        self.btnEditar.setEnabled(True)
 
     def populateComboBox(self):
         try:
@@ -110,10 +140,18 @@ class ParentInfoUI(QDialog):
         except Exception as e:
             print(f"Erro ao remover parente: {e}")
 
+    def openRegisterParent(self):
+        self.registerParent = RegisterParentUI()
+        self.registerParent.exec_()
+        self.listParents = ParentController.findParentForStudent(self.studentID)
+        self.comboBox.clear()
+        self.populateComboBox()
+        self.getInfo()
+
 if __name__ == "__main__":
     from PyQt5.QtWidgets import QApplication
     from App.controller.studentController import StudentController
-    aluno = StudentController.getById(10)
+    aluno = StudentController.getById(80)
     app = QApplication([])
     login = ParentInfoUI(aluno.id)
     app.exec_()

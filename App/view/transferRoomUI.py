@@ -4,12 +4,19 @@ from PyQt5.uic import loadUi
 from App.controller.roomController import RoomController
 from App.controller.studentController import StudentController
 import sys
+from PyQt5.QtWidgets import QHeaderView
 
 class transferRoomUI(QDialog):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         loadUi("App/view/ui/transferRoom.ui", self)
        
+        header = self.tableWidgetRooms.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.Fixed)
+        header.setSectionResizeMode(2, QHeaderView.Fixed)
+        self.tableWidgetRooms.setColumnWidth(1, 120)
+        self.tableWidgetRooms.setColumnWidth(2, 120)
         self.btnConfir.clicked.connect(self.transfer)
         self.btnExcluir.clicked.connect(self.delete)
         self.comboBox.currentIndexChanged.connect(self.alterarSala)

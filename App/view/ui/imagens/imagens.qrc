@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="setas">
+    <file>image-arrow.png</file>
+  </qresource>
+  <qresource prefix="imagem">
+    <file>logo.png</file>
+  </qresource>
+</RCC>

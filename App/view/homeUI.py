@@ -67,8 +67,9 @@ class HomeUI(QMainWindow):
         action = [
             ("Nova turma", lambda : self.callEvent(RegisterClassUI, parent=self)),
             ("Cadastrar aluno", lambda : self.callEvent(RegisterStudentUI, parent=self)),
-            ("Novo ano letivo", lambda : self.callEvent(transferRoomUI, parent=self)), # mudar para transferenciaUI
-            ("Relatórios", lambda : self.callEvent(RegisterStudentUI, parent=self)), # mudar para relatoriosUI
+            ("Novo ano letivo", lambda : self.callEvent(transferRoomUI, parent=self)),
+            ("Alunos sem sala", lambda : self.callEvent(RegisterStudentUI, parent=self)), # mudar para tela alunos sem sala
+            ("Relatórios", lambda : self.callEvent(RegisterStudentUI, parent=self)),
             ("Cadastrar funcionário", lambda : self.callEvent(adminUI, parent=self)),
         ]
 
